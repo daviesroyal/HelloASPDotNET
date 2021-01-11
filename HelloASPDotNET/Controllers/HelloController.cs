@@ -13,19 +13,7 @@ namespace HelloASPDotNET.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            string selectLanguage = "<select name='language'>" +
-                "<option value='en'>English</option>" +
-                "<option value='fr'>French</option>" +
-                "<option value='sp'>Spanish</option>" +
-                "<option value='it'>Italian</option>" +
-                "<option value='ga'>Gaelic Irish</option>" +
-                "</select>";
-            string html = "<form method='post' action='/hello'>" +
-               "<input type='text' name='name' />" +
-               selectLanguage +
-               "<input type='submit' value='Greet Me!' />" +
-               "</form>";
-            return Content(html, "text/html");
+            return View();
         }
 
         public static string CreateMessage(string name = "World", string language = "en")
@@ -53,8 +41,8 @@ namespace HelloASPDotNET.Controllers
         [HttpPost, Route("/hello")]
         public IActionResult Welcome(string name, string language)
         {
-            string message = CreateMessage(name, language);
-            return Content($"<h1>{message}</h1>", "text/html");
+            ViewBag.message = CreateMessage(name, language);
+            return View();
         }
     }
 }
